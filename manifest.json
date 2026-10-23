@@ -1,7 +1,7 @@
 {
-  "name": "DATBUSSTIM.IOS",
-  "short_name": "DATBUSSTIM",
-  "description": "DATBUSSTIM.IOS - công cụ demo quản lý yêu cầu TikTok",
+  "name": "TikTok Boost",
+  "short_name": "TT Boost",
+  "description": "Công cụ demo quản lý yêu cầu TikTok",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
