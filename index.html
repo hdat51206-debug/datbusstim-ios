@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101018">
+  <meta name="description" content="DATBUSSTIM.IOS - quản lý yêu cầu tương tác TikTok">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>DATBUSSTIM.IOS</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0d0d14;--panel:#191923;--line:#343444;--pink:#ff3478;--cyan:#25e6e0;--muted:#aaaabc}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(ellipse at top,#241025 0,#0d0d14 52%);color:#fff;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+    .wrap{width:min(100%,480px);margin:auto;padding:20px 16px 40px}
+    header{display:flex;align-items:center;gap:12px;margin:8px 0 24px}
+    .logo{height:48px;width:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),#8e35ff);font-size:25px;box-shadow:0 0 25px #ff34784d}
+    h1{font-size:23px;margin:0;letter-spacing:.2px} header p{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .hero{border:1px solid #ff34784c;background:linear-gradient(140deg,#291323,#171722 65%);border-radius:24px;padding:22px;margin-bottom:16px;box-shadow:0 12px 36px #0004}
+    .eyebrow{color:var(--cyan);font-size:11px;letter-spacing:2px;font-weight:800}
+    .hero h2{font-size:26px;line-height:1.15;margin:10px 0}
+    .hero p{color:#c7c4d4;font-size:14px;line-height:1.5;margin:0}
+    .panel{background:#191923eF;border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:16px}
+    .section-title{font-size:15px;font-weight:800;margin:0 0 14px}
+    label{display:block;color:#d8d7e4;font-size:13px;margin:16px 0 8px}
+    input{width:100%;background:#101018;color:white;border:1px solid #414153;border-radius:13px;padding:15px;font-size:16px;outline:none}
+    input:focus{border-color:var(--pink);box-shadow:0 0 0 3px #ff34781c}
+    .packages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .package{position:relative;border:1px solid #414153;border-radius:16px;background:#11111a;padding:15px 10px;text-align:left;color:white;cursor:pointer;min-height:116px}
+    .package.selected{border:1.5px solid var(--pink);background:linear-gradient(145deg,#351528,#171722);box-shadow:0 0 18px #ff34781c}
+    .package .emoji{font-size:23px}.package strong{display:block;font-size:17px;margin:9px 0 4px}.package small{color:var(--muted);font-size:11px}
+    .package .check{position:absolute;right:10px;top:10px;color:var(--cyan);display:none}.package.selected .check{display:block}
+    .primary{width:100%;border:0;border-radius:14px;padding:16px;background:linear-gradient(100deg,var(--pink),#ff4eac);color:white;font-size:15px;font-weight:900;letter-spacing:.5px;cursor:pointer;box-shadow:0 8px 22px #ff34782b;margin-top:18px}
+    .primary:active{transform:scale(.99)}
+    .secondary{border:1px solid var(--line);border-radius:12px;background:#242432;color:#fff;padding:10px 13px;cursor:pointer}
+    .hint{font-size:11px;color:var(--muted);line-height:1.55;margin:12px 0 0}
+    .status{display:none;border:1px solid #25e6e044;background:#102321;border-radius:13px;padding:13px;margin-top:14px;font-size:13px;line-height:1.5;color:#d5fff9;overflow-wrap:anywhere}
+    .history-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .empty{color:var(--muted);font-size:13px;padding:8px 0}
+    .entry{padding:13px 0;border-top:1px solid #343444;display:flex;justify-content:space-between;gap:12px}
+    .entry strong{font-size:13px;display:block;overflow-wrap:anywhere}.entry small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+    .tag{font-size:10px;color:var(--cyan);border:1px solid #25e6e044;border-radius:20px;padding:5px 7px;height:max-content;white-space:nowrap}
+    footer{text-align:center;color:#77778a;font-size:11px;line-height:1.6;padding:8px 10px}
+    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}
+    .nav button{background:#181821;border:1px solid #343444;border-radius:12px;padding:10px 4px;color:#bdbdce;font-size:11px}
+    .nav button.active{color:#fff;border-color:#ff3478;background:#321727}
+    @media(min-width:430px){.wrap{padding-top:28px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">♪</div>
+    <div><h1>DATBUSSTIM<span style="color:var(--pink)">.IOS</span></h1><p>DATBUSSTIM.IOS · NEON TOOLKIT</p></div>
+  </header>
+  <div class="hero">
+    <div class="eyebrow">YOUR CREATOR SPACE</div>
+    <h2>Quản lý yêu cầu<br>trong một chạm.</h2>
+    <p>Chọn gói, nhập ID TikTok và lưu yêu cầu để theo dõi. Giao diện demo không tự tăng tim hoặc follow.</p>
+  </div>
+  <div class="nav">
+    <button class="active" type="button" data-target="request">✦ Tạo yêu cầu</button>
+    <button type="button" data-target="history">◷ Lịch sử</button>
+    <button type="button" data-target="about">ⓘ Thông tin</button>
+  </div>
+  <section class="panel" id="request">
+    <h3 class="section-title">01 / Tài khoản TikTok</h3>
+    <form id="requestForm">
+      <label for="username">ID hoặc tên người dùng</label>
+      <input id="username" name="username" placeholder="@ten_tiktok" maxlength="100" required autocomplete="off">
+      <label>02 / Chọn gói demo</label>
+      <div class="packages">
+        <button type="button" class="package selected" data-package="1000 Follow" aria-pressed="true">
+          <span class="check">✓</span><span class="emoji">👥</span><strong>1.000 Follow</strong><small>Lưu yêu cầu follow</small>
+        </button>
+        <button type="button" class="package" data-package="10.000 Tim" aria-pressed="false">
+          <span class="check">✓</span><span class="emoji">💗</span><strong>10.000 Tim</strong><small>Lưu yêu cầu tim</small>
+        </button>
+      </div>
+      <button class="primary" type="submit">TẠO YÊU CẦU ↗</button>
+      <p class="hint">Không nhập mật khẩu hoặc mã OTP. Nút này chỉ lưu yêu cầu trên thiết bị, không gửi yêu cầu tới TikTok và không tạo tương tác.</p>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+  <section class="panel" id="history">
+    <div class="history-head"><h3 class="section-title" style="margin:0">Lịch sử trên thiết bị</h3><button class="secondary" id="clearHistory" type="button">Xóa</button></div>
+    <div id="historyList"><div class="empty">Chưa có yêu cầu nào được lưu.</div></div>
+  </section>
+  <section class="panel" id="about">
+    <h3 class="section-title">Thông tin ứng dụng</h3>
+    <p style="color:#c7c4d4;font-size:13px;line-height:1.65;margin:0">DATBUSSTIM.IOS hiện là ứng dụng web cài lên màn hình chính (PWA). Dữ liệu lịch sử được lưu cục bộ trên trình duyệt của thiết bị. Ứng dụng chưa kết nối API TikTok hay dịch vụ tăng tương tác.</p>
+    <button id="installBtn" class="secondary" type="button" style="width:100%;margin-top:14px;display:none">Cài đặt ứng dụng</button>
+    <p class="hint">iPhone: mở website bằng Safari → Chia sẻ → Thêm vào MH chính. Android: mở bằng Chrome → menu ⋮ → Cài đặt ứng dụng/Thêm vào màn hình chính.</p>
+  </section>
+  <footer>Unofficial demo · Không liên kết hoặc được TikTok chứng thực.<br>Không có tương tác nào được thực hiện bởi bản demo này.</footer>
+</div>
+<script>
+(() => {
+  const form = document.getElementById('requestForm');
+  const input = document.getElementById('username');
+  const status = document.getElementById('status');
+  const list = document.getElementById('historyList');
+  const packages = [...document.querySelectorAll('.package')];
+  let selected = '1000 Follow';
+  let installPrompt = null;
+  const STORE = 'tiktokBoostRequestsV1';
+
+  packages.forEach(btn => btn.addEventListener('click', () => {
+    selected = btn.dataset.package;
+    packages.forEach(p => {
+      const active = p === btn;
+      p.classList.toggle('selected', active);
+      p.setAttribute('aria-pressed', String(active));
+    });
+  }));
+
+  function getItems() {
+    try { return JSON.parse(localStorage.getItem(STORE) || '[]'); }
+    catch (_) { return []; }
+  }
+  function render() {
+    const items = getItems();
+    if (!items.length) {
+      list.innerHTML = '<div class="empty">Chưa có yêu cầu nào được lưu.</div>';
+      return;
+    }
+    list.replaceChildren();
+    items.slice().reverse().forEach(item => {
+      const row = document.createElement('div'); row.className = 'entry';
+      const info = document.createElement('div');
+      const name = document.createElement('strong'); name.textContent = item.username;
+      const date = document.createElement('small'); date.textContent = item.date;
+      const pkg = document.createElement('small'); pkg.textContent = item.package;
+      info.append(name, pkg, date);
+      const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = 'Đã lưu demo';
+      row.append(info, tag); list.append(row);
+    });
+  }
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const username = input.value.trim();
+    if (!username) return;
+    const items = getItems();
+    items.push({ username: username.startsWith('@') ? username : '@' + username,
+      package: selected, date: new Date().toLocaleString('vi-VN') });
+    try {
+      localStorage.setItem(STORE, JSON.stringify(items.slice(-50)));
+      status.style.display = 'block';
+      status.textContent = 'Đã lưu yêu cầu demo cho ' + (username.startsWith('@') ? username : '@' + username) + ' — ' + selected + '. Chưa có follow/tim nào được tăng.';
+      input.value = '';
+      render();
+    } catch (_) {
+      status.style.display = 'block';
+      status.textContent = 'Không thể lưu trên thiết bị này. Hãy kiểm tra cài đặt trình duyệt.';
+    }
+  });
+  document.getElementById('clearHistory').addEventListener('click', () => {
+    if (confirm('Xóa toàn bộ lịch sử được lưu trên thiết bị?')) {
+      localStorage.removeItem(STORE); render();
+    }
+  });
+  document.querySelectorAll('.nav button').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById(btn.dataset.target).scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); installPrompt = e;
+    const b = document.getElementById('installBtn'); b.style.display = 'block';
+  });
+  document.getElementById('installBtn').addEventListener('click', async () => {
+    if (!installPrompt) {
+      alert('Trên iPhone, dùng Safari → Chia sẻ → Thêm vào MH chính.');
+      return;
+    }
+    installPrompt.prompt(); await installPrompt.userChoice; installPrompt = null;
+  });
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
+  }
+  render();
+})();
+</script>
+</body>
+</html>
